@@ -74,13 +74,17 @@ SELECT
 FROM Employees;
 
 -- 10 : Find the Top 2 Highest Paid Employees per Department
-SELECT
-    emp_id,
-    first_name,
-    dept_id,
-    salary,
-    RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) AS salary_rank
-FROM Employees
+SELECT *
+FROM (
+    SELECT
+        emp_id,
+        first_name,
+        dept_id,
+        salary,
+        RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) AS salary_rank
+    FROM Employees
+) ranked
 WHERE salary_rank <= 2;
+
 
 
